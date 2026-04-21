@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { validateLoginForm } from "../utils/validateLoginForm";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -14,14 +20,55 @@ const Login = () => {
 
   const handleForm = () => {
       const message = validateLoginForm(email.current.value, password.current.value);
-      setErrorMessage(message);
+    setErrorMessage(message);
+    
+    if (message) return;
+
+    if (!isSignInForm) {
+      //Sign Up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode+'-'+errorMessage);
+          console.log(error);
+        });
+    }
+    else {
+      //Sign In logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
 
   return (
     <div>
-      <Header />
-      <div className="absolute">
+      <Header page={"login"} />
+      <div className="absolute h-full">
         <img
+          className="w-full brightness-50"
           src="https://assets.nflxext.com/ffe/siteui/vlv3/5bd3572a-0d1b-4228-aaa7-5b2dc45952b2/web/IN-en-20260413-TRIFECTA-perspective_4100808f-7dc6-4c78-8677-18db2989f7bc_large.jpg"
           alt="back"
         />
@@ -60,7 +107,7 @@ const Login = () => {
         <button
           onClick={handleForm}
           type="submit"
-          className="px-4 py-4 mt-6 bg-red-600 rounded-md"
+          className="px-4 py-2 mt-6 bg-[#E50914] rounded-sm"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
