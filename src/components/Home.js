@@ -22,7 +22,7 @@ const Home = () => {
         </p>
         <div className="flex justify-center my-6">
           <input
-            className="w-2/3 bg-[#111] px-8 py-4 opacity-70 rounded-md border border-gray-500"
+            className="w-3/5 bg-[#111] px-8 py-4 opacity-70 rounded-md border border-gray-500"
             type="text"
             placeholder="Email address"
           />
