@@ -59,7 +59,7 @@ const Header = () => {
         />
       </Link>
       <div className="text-white flex justify-between items-center relative">
-        <select className="px-2 rounded-md py-1 bg-gray-700 opacity-80">
+        <select className="px-4 rounded-md py-1 bg-gray-700 opacity-80 border border-[#999]">
           <option>English</option>
           <option>हिन्दी</option>
         </select>
