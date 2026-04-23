@@ -26,7 +26,7 @@ const Home = () => {
             type="text"
             placeholder="Email address"
           />
-          <button className="ml-4 bg-[#E50914] px-8 py-2 rounded-md text-xl font-bold">
+          <button className="ml-4 bg-[#E50914] px-8 py-2 rounded-md text-xl font-bold hover:bg-red-700">
             Get Started
           </button>
         </div>
